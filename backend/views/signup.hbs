@@ -1,0 +1,65 @@
+<div class="container">
+    {{> nav-bar }}
+    <h1 class="display-4">Registro de usuario</h1>
+    <form action="/api/signup" method="POST" enctype="multipart/form-data" id="signup-form">
+        <div class="form-group mb-3">
+            <label for="user">Ingrese su nombre</label>
+            <input class="form-control" id="nombre" type="text" name="nombre" required="true" />
+        </div>
+        <div class="form-group mb-3">
+            <label for="user">Ingrese su email</label>
+            <input class="form-control" id="email" type="text" name="email" required="true" />
+        </div>
+        <div class="form-group mb-3">
+            <label for="user">Ingrese su contraseña</label>
+            <input class="form-control" id="password" type="password" name="password" required="true" />
+        </div>
+        <div class="form-group mb-3">
+            <label for="user">Repita su contraseña</label>
+            <input class="form-control" id="passwordConfirm" type="password" name="passwordConfirm" required="true" />
+        </div>
+        <div class="form-group mb-3">
+            <label for="user">Ingrese su edad</label>
+            <input class="form-control" id="edad" type="number" name="edad" required="true" />
+        </div>
+        <div class="form-group mb-3">
+            <label for="user">Ingrese su telefono</label>
+            <input class="form-control" id="telefono" type="text" name="telefono" required="true" />
+        </div>
+        <div class="form-group mb-3">
+            <label for="user">Ingrese su direccion</label>
+            <input class="form-control" id="direccion" type="text" name="direccion" required="true" />
+        </div>
+        <div class="form-group mb-3">
+            <label for="thumbnail">Ingrese su avatar</label>
+            <input class="form-control" id="avatar" type="file" name="avatar" required="true" />
+        </div>
+        <button type="submit" class="btn btn-primary mb-3">Enviar</button>
+    </form>
+    <button type="button" class="btn btn-primary mb-3" onclick="location.href='/viewlogin'">Login</button>
+</div>
+<script>
+    document.getElementById('signup-form').addEventListener('submit', (event) => {
+        event.preventDefault();
+        const { nombre, email, password, passwordConfirm, edad, telefono, direccion, avatar } = event.target;
+        const formData = new FormData();
+        formData.append("nombre", nombre.value);
+        formData.append("email", email.value);
+        formData.append("password", password.value);
+        formData.append("passwordConfirm", passwordConfirm.value);
+        formData.append("edad", edad.value);
+        formData.append("telefono", telefono.value);
+        formData.append("direccion", direccion.value);
+        formData.append("avatar", avatar.files[0]);
+        fetch("/api/signup", {
+            method: "POST",
+            body: formData
+        })
+            .then(() => {
+                location.href = '/home';
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    })
+</script>

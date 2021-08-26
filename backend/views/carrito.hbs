@@ -1,0 +1,46 @@
+<script>
+    async function buyFunction(){
+        await fetch(`/api/carrito/comprar`, {
+            method: 'POST'
+        });
+        location.href = '/home';
+    }
+    async function removeFunction(id){
+        await fetch(`/api/carrito/borrar/${id}`, {
+            method: 'DELETE'
+        });
+        location.href = '/carrito';
+    }
+</script>
+<div class="container">
+    {{> nav-bar }}
+    <h1 class="display-4 mb-3">Carrito</h1>
+    {{#if existe}}
+    <table class="table table-responsive table-dark table-striped" id='tabla'>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Imagen</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each lista}}
+            <tr>
+                <td>{{this.producto.nombre}}</td>
+                <td>${{this.producto.precio}}</td>
+                <td><img height="80" src={{this.producto.foto}} alt="#"></td>
+                <td>
+                    <button type="button" class="btn btn-primary" onclick="removeFunction('{{this._id}}');">Remover</button>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    <button type="button" class="btn btn-primary" onclick="buyFunction();">Comprar</button>
+    {{else}}
+    <div class="alert alert-info" role="alert">
+        No se encontraron productos
+    </div>
+    {{/if}}
+</div>

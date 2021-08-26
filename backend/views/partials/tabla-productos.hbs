@@ -1,0 +1,38 @@
+<script>
+    async function addCarrrito(id) {
+        await fetch(`/api/carrito/agregar/${id}`, {
+            method: 'POST'
+        });
+    }
+</script>
+<h1 class="display-4 mb-3">Lista de productos</h1>
+{{#if existe}}
+<table class="table table-responsive table-dark table-striped" id='tabla'>
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Precio</th>
+            <th>Imagen</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each lista}}
+        <tr>
+            <td>{{this.nombre}}</td>
+            <td>${{this.precio}}</td>
+            <td><img height="80" src={{this.foto}} alt="#"></td>
+            <td>
+                <button type="button" class="btn btn-primary" onclick="location.href = '/productos/{{this._id}}'">ver
+                    más</button>
+                <button type="button" class="btn btn-primary" onclick="addCarrrito('{{this._id}}');">Añadir al
+                    carrito</button>
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+{{else}}
+<div class="alert alert-info" role="alert">
+    No se encontraron productos
+</div>
+{{/if}}

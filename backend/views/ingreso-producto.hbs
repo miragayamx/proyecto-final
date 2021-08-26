@@ -1,0 +1,61 @@
+<div class="container">
+    {{> nav-bar }}
+    <h1 class="display-4">Registar producto</h1>
+    <form action="/api/productos/agregar" method="POST" enctype="application/x-www-form-urlencoded" id="product-form">
+        <div class="form-group mb-3">
+            <label for="nombre">Nombre</label>
+            <input class="form-control" id="nombre" type="text" name="nombre" required="true" />
+        </div>
+        <div class="form-group mb-3">
+            <label for="precio">Precio</label>
+            <div class="input-group">
+                <span class="input-group-text">$</span>
+                <input class="form-control" id="precio" type="number" step="any" name="precio" required="true" />
+            </div>
+        </div>
+        <div class="form-group mb-3">
+            <label for="descripcion">Descripción</label>
+            <input class="form-control" id="descripcion" type="text" name="descripcion" required="true" />
+        </div>
+        <div class="form-group mb-3">
+            <label for="codigo">Codigo</label>
+            <input class="form-control" id="codigo" type="text" name="codigo" required="true" />
+        </div>
+        <div class="form-group mb-3">
+            <label for="stock">Stock</label>
+            <input class="form-control" id="stock" type="number" step="any" name="stock" required="true" />
+        </div>
+        <div class="form-group mb-3">
+            <label for="foto">Imagen</label>
+            <input class="form-control" id="foto" type="text" name="foto" required="true" />
+        </div>
+        <button type="submit" class="btn btn-primary mb-3">Registrar</button>
+    </form>
+</div>
+<script>
+    document.getElementById('product-form').addEventListener('submit', (event) => {
+        event.preventDefault();
+        const { nombre, descripcion, codigo, precio, stock, foto } = event.target;
+        const data = {
+            nombre: nombre.value,
+            descripcion: descripcion.value,
+            codigo: codigo.value,
+            precio: precio.value,
+            stock: stock.value,
+            foto: foto.value
+        }
+        fetch("/api/productos/agregar", {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+            .then(() => {
+                location.href = '/home';
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    })
+</script>
