@@ -1,8 +1,5 @@
 const path = require('path');
 const express = require('express');
-const session = require('express-session');
-const MongoStore = require('connect-mongo');
-const passport = require('passport');
 const handlebars = require('express-handlebars');
 const logger = require('./winstonConfig');
 const productoRouter = require('./routes/productoRouter');
@@ -11,25 +8,8 @@ const loginRouter = require('./routes/loginRouter');
 const viewRouter = require('./routes/viewRouter');
 const { createUploadsFolder } = require('./utils/fileManager');
 const env = require('./config');
-require('./db-connect-data/mongoDB');
-require('./passport/passport');
 
 const app = express();
-
-app.use(
-	session({
-		store: MongoStore.create({
-			mongoUrl: env.MONGODB_URL,
-			mongoOptions: { useNewUrlParser: true, useUnifiedTopology: true }
-		}),
-		secret: 'secreto',
-		resave: true,
-		saveUninitialized: true
-	})
-);
-
-app.use(passport.initialize());
-app.use(passport.session());
 
 app.engine(
 	'hbs',

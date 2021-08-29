@@ -13,6 +13,7 @@ const env = {
 	PORT: process.env.PORT,
 	MONGODB_URL: process.env.MONGODB_URL,
 	SESSION_EXPIRATION: process.env.SESSION_EXPIRATION,
+	TOKEN_SECRET: process.env.TOKEN_SECRET,
 	CLUSTER_MODE: process.env.CLUSTER_MODE,
 	WEB_CONCURRENCY: concurrency
 };

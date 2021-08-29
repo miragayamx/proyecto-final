@@ -1,21 +1,12 @@
 const mongoose = require('mongoose');
 
 const productoSchema = new mongoose.Schema({
-    timestamp: {
-        type: Date,
-        required: true
-    },
 	nombre: {
 		type: String,
 		required: true,
 		trim: true
 	},
     descripcion: {
-		type: String,
-		required: true,
-		trim: true
-	},
-    codigo: {
 		type: String,
 		required: true,
 		trim: true
@@ -29,8 +20,8 @@ const productoSchema = new mongoose.Schema({
 		type: Number,
 		required: true
 	},
-    stock: {
-		type: Number,
+    categoria: {
+		type: String,
 		required: true
 	},
 });

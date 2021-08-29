@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const carritoItemSchema = new mongoose.Schema({
+const OrdenItemSchema = new mongoose.Schema({
 	producto: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'producto',
@@ -12,7 +12,7 @@ const carritoItemSchema = new mongoose.Schema({
 	}
 });
 
-const carritoSchema = new mongoose.Schema({
+const ordenSchema = new mongoose.Schema({
 	timestamp: {
 		type: Date,
 		required: true
@@ -22,9 +22,18 @@ const carritoSchema = new mongoose.Schema({
 		ref: 'usuario',
 		required: true
 	},
+	numero: {
+		type: Number,
+		required: true
+	},
+	estado: {
+		type: String,
+		trim: true,
+		required: true
+	},
 	items: [
 		{
-			type: carritoItemSchema
+			type: OrdenItemSchema
 		}
 	],
 	direccion: {
@@ -34,6 +43,6 @@ const carritoSchema = new mongoose.Schema({
 	}
 });
 
-const Carrito = mongoose.model('carrito', carritoSchema);
+const Orden = mongoose.model('orden', ordenSchema);
 
-module.exports = Carrito;
+module.exports = Orden;
